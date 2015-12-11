@@ -6,4 +6,5 @@ In This book, we are not going to discuss how to use UE4. Instead, we focus on h
 We use reStructedText as the composing language.
 Our goal is to go deeper and deeper. It may not cover everything of this engine. But for the aspect it covers, we are trying to make it as clear as possible.
 
+This book is based on UE4 4.10 for now, but it may cover future version of UE4. 
 

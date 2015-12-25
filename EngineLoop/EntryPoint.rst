@@ -1,48 +1,46 @@
-Entry Point
-===========
+Entry point and main loop
+=========================
 
-Path is <Engine Root>/Engine/Source/Runtime/Launch/
+It is a good start to learn from the entry point and main loop. All related coderesides in Path <Engine Root>/Engine/Source/Runtime/Launch/.
 
-LaunchMac.cpp in <Engine Root>/Engine/Source/Runtime/Launch/Private/Mac
+Here you can find all the code for creating application on different platform.
 
-Entry Point 
-	INT32_MAIN_INT32_ARGC_TCHAR_ARGV()
+Take a look at LaunchMac.cpp in <Engine Root>/Engine/Source/Runtime/Launch/Private/Mac. This is the implementation on Mac OS.
 
-It is a macro
+We can easily tell the entry point is INT32_MAIN_INT32_ARGC_TCHAR_ARGV().
 
-- (void)applicationDidFinishLaunching:(NSNotification *)Notification
+What makes sense is the function GuardedMain which encapsulates the main loop of UE4.
 
+The main loop of UE4 is quite simple and it is something as the code snippet shows below::
 
-Code of MainLoop::
-
-int32 GuardedMain( const TCHAR* CmdLine )
-{
-	// make sure GEngineLoop::Exit() is always called.
-	struct EngineLoopCleanupGuard 
-	{ 
-		~EngineLoopCleanupGuard()
-		{
-			EngineExit();
-		}
-	} CleanupGuard;	
-
-    ...
-
-	EnginePreInit( CmdLine );
-
-    ...
-
-	EngineInit();
-
-    ...
-
-    while( !GIsRequestingExit )
+    int32 GuardedMain( const TCHAR* CmdLine )
     {
-        EngineTick();
+    	// make sure GEngineLoop::Exit() is always called.
+    	struct EngineLoopCleanupGuard 
+    	{ 
+    		~EngineLoopCleanupGuard()
+    		{
+    			EngineExit();
+    		}
+    	} CleanupGuard;	
+    
+        ...
+    
+    	EnginePreInit( CmdLine );
+    
+        ...
+    
+    	EngineInit();
+    
+        ...
+    
+        while( !GIsRequestingExit )
+        {
+            EngineTick();
+        }
+    
+        ...
     }
-
-    ...
-}
 
 
 EnginePreInit

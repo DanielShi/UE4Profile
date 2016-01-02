@@ -55,6 +55,7 @@ EnginePreInit
 * Initialize file manager
 * Remember thread id of the main thread which is game thread
 * Initialize random number generator
+* Initialize task graph interface
 * Start Stat thread
 * LoadCoreModules
 * Initialize rendering CVars Caching
